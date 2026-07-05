@@ -1,4 +1,4 @@
-# 🐦 Flappy Bird Clone
+# 🐦 Flappy Bird Game
 
 A classic Flappy Bird clone built with Python and Pygame! Flap your wings to navigate through pipes, avoid crashing, and beat your high score.
 
@@ -21,5 +21,5 @@ A classic Flappy Bird clone built with Python and Pygame! Flap your wings to nav
 
 1. **Clone the repository:**
    ```bash
-   git clone <your-repo-url>
-   cd flappy-bird-clone
+   git clone <repo-url>
+   cd Flappy-Bird-Game
