@@ -1,6 +1,15 @@
 import pygame as pg
 import sys
 import random
+import os
+
+# Anchor asset paths to this script's directory so the game works
+# regardless of which working directory Python is launched from.
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+def asset(path):
+    """Return an absolute path to an asset, anchored to the game directory."""
+    return os.path.join(BASE_DIR, path)
 
 pg.init()
 pg.mixer.init()
@@ -12,10 +21,10 @@ class Bird:
     def __init__(self, scale_factor):
         # Load both wing frames and scale them
         self.img_up = pg.transform.scale_by(
-            pg.image.load("Assets/birdup.png").convert_alpha(), scale_factor
+            pg.image.load(asset("Assets/birdup.png")).convert_alpha(), scale_factor
         )
         self.img_down = pg.transform.scale_by(
-            pg.image.load("Assets/birddown.png").convert_alpha(), scale_factor
+            pg.image.load(asset("Assets/birddown.png")).convert_alpha(), scale_factor
         )
         self.current_img = self.img_up
         self.rect = self.current_img.get_rect(center=(100, 300))
@@ -29,7 +38,7 @@ class Bird:
         self.anim_timer = 0
 
         # Flap sound
-        self.flap_sfx = pg.mixer.Sound("Assets/sfx/flap.wav")
+        self.flap_sfx = pg.mixer.Sound(asset("Assets/sfx/flap.wav"))
         self.flap_sfx.set_volume(0.3)
 
     def flap(self):
@@ -70,10 +79,10 @@ class Pipe:
 
     def __init__(self, x, scale_factor, win_height, ground_y):
         self.pipe_up_img = pg.transform.scale_by(
-            pg.image.load("Assets/pipeup.png").convert_alpha(), scale_factor
+            pg.image.load(asset("Assets/pipeup.png")).convert_alpha(), scale_factor
         )
         self.pipe_down_img = pg.transform.scale_by(
-            pg.image.load("Assets/pipedown.png").convert_alpha(), scale_factor
+            pg.image.load(asset("Assets/pipedown.png")).convert_alpha(), scale_factor
         )
 
         self.gap = 180  # vertical gap between pipes
@@ -122,13 +131,13 @@ class Game:
 
         # ---- Load images ----
         self.bg_img = pg.transform.scale_by(
-            pg.image.load("Assets/bg.png").convert(), self.scale_factor
+            pg.image.load(asset("Assets/bg.png")).convert(), self.scale_factor
         )
         self.ground1_img = pg.transform.scale_by(
-            pg.image.load("Assets/ground.png").convert(), self.scale_factor
+            pg.image.load(asset("Assets/ground.png")).convert(), self.scale_factor
         )
         self.ground2_img = pg.transform.scale_by(
-            pg.image.load("Assets/ground.png").convert(), self.scale_factor
+            pg.image.load(asset("Assets/ground.png")).convert(), self.scale_factor
         )
 
         # Ground rects (two copies for seamless scrolling)
@@ -140,14 +149,14 @@ class Game:
         self.ground_speed = 3
 
         # ---- Font ----
-        self.font_large = pg.font.Font("Assets/font.ttf", 48)
-        self.font_medium = pg.font.Font("Assets/font.ttf", 28)
-        self.font_small = pg.font.Font("Assets/font.ttf", 20)
+        self.font_large = pg.font.Font(asset("Assets/font.ttf"), 48)
+        self.font_medium = pg.font.Font(asset("Assets/font.ttf"), 28)
+        self.font_small = pg.font.Font(asset("Assets/font.ttf"), 20)
 
         # ---- Sound effects ----
-        self.score_sfx = pg.mixer.Sound("Assets/sfx/score.wav")
+        self.score_sfx = pg.mixer.Sound(asset("Assets/sfx/score.wav"))
         self.score_sfx.set_volume(0.4)
-        self.dead_sfx = pg.mixer.Sound("Assets/sfx/dead.wav")
+        self.dead_sfx = pg.mixer.Sound(asset("Assets/sfx/dead.wav"))
         self.dead_sfx.set_volume(0.5)
 
         # ---- Game objects ----
